@@ -1,16 +1,16 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  Text,
-  StatusBar,
-} from 'react-native';
+import Routes from './src/routes';
+
+import {StatusBar} from 'react-native';
+
+import {Provider as PaperProvider} from 'react-native-paper';
 
 const App = () => (
   <>
     <StatusBar barStyle="light-content" />
-    <SafeAreaView>
-      <Text>Olá</Text>
-    </SafeAreaView>
+    <PaperProvider>
+      <Routes />
+    </PaperProvider>
   </>
 );
 
