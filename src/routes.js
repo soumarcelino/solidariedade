@@ -3,7 +3,7 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 import {Icon} from 'react-native-elements';
 import {View} from 'react-native';
 
-import Home from './pages/Home';
+import Vooa from './pages/Vooa';
 
 function getIconByTitle(title) {
   switch (title) {
@@ -28,7 +28,7 @@ export default function Routes() {
       <Stack key="root" tabs={true} activeTintColor="#6F2682">
         <Scene
           key="vooa"
-          component={Home}
+          component={Vooa}
           title="Histórias de Vooa"
           icon={TabIcon}
           hideNavBar

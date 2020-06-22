@@ -1,6 +1,6 @@
 import React from 'react';
 import {Title} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity, Linking} from 'react-native';
 
 import uuid from 'react-uuid';
 
@@ -16,7 +16,7 @@ function mountArticleURL(link) {
   return `${VOA_URL}${link}`;
 }
 
-export default function Home() {
+export default function Vooa() {
   const {data, isLoading} = useVoaData();
 
   if (isLoading) {
@@ -38,8 +38,14 @@ export default function Home() {
         )}
         keyExtractor={() => uuid()}
       />
-      <Title style={styles.title}>Conheça outras histórias de Vooa</Title>
-      <Image source={require('../media/logo_voaa.png')} style={styles.logo} />
+      <TouchableOpacity
+        style={styles.banner}
+        onPress={() => {
+          Linking.openURL(VOA_URL);
+        }}>
+        <Title style={styles.title}>Conheça outras histórias de Vooa</Title>
+        <Image source={require('../media/logo_voaa.png')} style={styles.logo} />
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -50,8 +56,13 @@ const textWithShadow = {
 };
 
 const styles = StyleSheet.create({
-  title: {padding: 10, color: '#6F2682'},
-  logo: {backgroundColor: '#77087D', resizeMode: 'cover'},
+  title: {
+    padding: 10,
+    color: '#6F2682',
+    textAlign: 'center',
+  },
+  banner: {display: 'flex', justifyContent: 'center', flexDirection: 'column'},
+  logo: {backgroundColor: '#77087D', resizeMode: 'contain', width: '100%'},
   subtitle: {color: '#000'},
   card: {margin: 5},
   cardTitle: {color: '#FFF', ...textWithShadow},
