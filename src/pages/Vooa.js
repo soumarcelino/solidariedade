@@ -9,23 +9,30 @@ import Card from '../components/Card';
 import {FlatList, ScrollView, Image} from 'react-native';
 
 import useVoaData from '../hooks/useVoaData';
+import useKickanteData from '../hooks/useKickanteData';
 
-const VOA_URL = 'https://voaa.me';
-
-function mountArticleURL(link) {
-  return `${VOA_URL}${link}`;
-}
+const VOAA_URL = 'https://voaa.me/';
+const KICKANTE_URL = 'https://www.kickante.com.br/';
 
 export default function Vooa() {
   const {data, isLoading} = useVoaData();
+  const {data: kickanteData, isLoadingKickante} = useKickanteData();
 
-  if (isLoading) {
+  if (isLoading || isLoadingKickante) {
     return <Title style={styles.pageTitle}>Carregando dados...</Title>;
   }
 
   return (
     <ScrollView>
       <Title style={styles.title}>Histórias de Voaa</Title>
+      <TouchableOpacity
+        style={styles.banner}
+        onPress={() => {
+          Linking.openURL(VOAA_URL);
+        }}>
+        <Title style={styles.title}>Conheça o trabalho da Voaa</Title>
+        <Image source={require('../media/logo_voaa.png')} style={styles.logo} />
+      </TouchableOpacity>
       <FlatList
         data={data}
         renderItem={({item}) => (
@@ -33,19 +40,35 @@ export default function Vooa() {
             title={item.title}
             content={item.description}
             imageURI={item.image}
-            articleURL={mountArticleURL(item.link)}
+            articleURL={item.link}
           />
         )}
         keyExtractor={() => uuid()}
       />
+      <Title style={styles.title}>Histórias de kickante</Title>
       <TouchableOpacity
-        style={styles.banner}
+        style={styles.bannerKickante}
         onPress={() => {
-          Linking.openURL(VOA_URL);
+          Linking.openURL(KICKANTE_URL);
         }}>
-        <Title style={styles.title}>Conheça outras histórias de Vooa</Title>
-        <Image source={require('../media/logo_voaa.png')} style={styles.logo} />
+        <Title style={styles.title}>Conheça o trabalho da Kickante</Title>
+        <Image
+          source={require('../media/logo_kickante.png')}
+          style={styles.logoKickante}
+        />
       </TouchableOpacity>
+      <FlatList
+        data={kickanteData}
+        renderItem={({item}) => (
+          <Card
+            title={item.title}
+            content={item.description}
+            imageURI={item.image}
+            articleURL={item.link}
+          />
+        )}
+        keyExtractor={() => uuid()}
+      />
     </ScrollView>
   );
 }
@@ -63,6 +86,7 @@ const styles = StyleSheet.create({
   },
   banner: {display: 'flex', justifyContent: 'center', flexDirection: 'column'},
   logo: {backgroundColor: '#77087D', resizeMode: 'contain', width: '100%'},
+  logoKickante: {backgroundColor: '#fff', resizeMode: 'contain', width: '100%'},
   subtitle: {color: '#000'},
   card: {margin: 5},
   cardTitle: {color: '#FFF', ...textWithShadow},

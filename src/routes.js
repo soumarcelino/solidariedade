@@ -29,7 +29,7 @@ export default function Routes() {
         <Scene
           key="vooa"
           component={Vooa}
-          title="Histórias de Vooa"
+          title="Histórias"
           icon={TabIcon}
           hideNavBar
         />
