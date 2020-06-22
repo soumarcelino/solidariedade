@@ -7,10 +7,8 @@ import Home from './pages/Home';
 
 function getIconByTitle(title) {
   switch (title) {
-    case 'Paises':
-      return 'flag';
-    case 'Estados':
-      return 'road';
+    case 'Histórias de Vooa':
+      return 'book';
     default:
       return 'tachometer';
   }
@@ -29,9 +27,9 @@ export default function Routes() {
     <Router>
       <Stack key="root" tabs={true} activeTintColor="#6F2682">
         <Scene
-          key="Home"
+          key="vooa"
           component={Home}
-          title="Vista inicial"
+          title="Histórias de Vooa"
           icon={TabIcon}
           hideNavBar
         />
