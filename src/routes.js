@@ -1,16 +1,18 @@
 import React from 'react';
 import {Router, Stack, Scene} from 'react-native-router-flux';
 import {Icon} from 'react-native-elements';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 
 import Vooa from './pages/Vooa';
+import About from './pages/About';
+
 
 function getIconByTitle(title) {
   switch (title) {
-    case 'Histórias de Vooa':
-      return 'book';
+    case 'Histórias':
+      return 'television';
     default:
-      return 'tachometer';
+      return 'users';
   }
 }
 function TabIcon({focused, title}) {
@@ -30,6 +32,13 @@ export default function Routes() {
           key="vooa"
           component={Vooa}
           title="Histórias"
+          icon={TabIcon}
+          hideNavBar
+        />
+        <Scene
+          key="about"
+          component={About}
+          title="Solidariedade"
           icon={TabIcon}
           hideNavBar
         />
